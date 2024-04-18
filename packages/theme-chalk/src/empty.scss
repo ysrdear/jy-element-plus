@@ -11,7 +11,7 @@
   flex-direction: column;
   text-align: center;
   box-sizing: border-box;
-  padding: getCssVar('empty-padding');
+  //padding: getCssVar('empty-padding');
 
   @include e(image) {
     width: getCssVar('empty-image-width');

@@ -57,11 +57,10 @@ $button-icon-span-gap: map.merge(
     outline: none;
   }
 
-  &:focus-visible {
-    outline: 2px solid getCssVar('button', 'outline-color');
-    outline-offset: 1px;
-    transition: outline-offset 0s, outline 0s;
-  }
+  //&:focus-visible {
+  //  outline: 2px solid getCssVar('button', 'outline-color');
+  //  outline-offset: 1px;
+  //}
 
   > span {
     display: inline-flex;
@@ -147,7 +146,6 @@ $button-icon-span-gap: map.merge(
     border-radius: getCssVar('border-radius', 'round');
   }
   @include when(circle) {
-    width: map.get($input-height, 'default');
     border-radius: 50%;
     padding: map.get($button-padding-vertical, 'default') - $button-border-width;
   }
@@ -163,14 +161,13 @@ $button-icon-span-gap: map.merge(
     }
 
     &:not(.is-disabled) {
-      &:hover {
+      &:hover{
         background-color: getCssVar('fill-color', 'light');
       }
 
       &:focus-visible {
         outline: 2px solid getCssVar('button', 'outline-color');
         outline-offset: 1px;
-        transition: outline-offset 0s, outline 0s;
       }
 
       &:active {
@@ -205,7 +202,7 @@ $button-icon-span-gap: map.merge(
     padding: 2px;
     height: auto;
 
-    &:hover {
+    &:hover{
       color: getCssVar('button', 'hover', 'link-text-color');
     }
 
@@ -216,7 +213,7 @@ $button-icon-span-gap: map.merge(
     }
 
     &:not(.is-disabled) {
-      &:hover {
+      &:hover{
         border-color: transparent;
         background-color: transparent;
       }
@@ -242,7 +239,7 @@ $button-icon-span-gap: map.merge(
     }
 
     &:not(.is-disabled) {
-      &:hover {
+      &:hover{
         color: getCssVar('color', 'primary', 'light-3');
         border-color: transparent;
         background-color: transparent;

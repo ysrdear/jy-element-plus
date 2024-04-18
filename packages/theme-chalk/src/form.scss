@@ -9,8 +9,8 @@ $form-item-margin-bottom: () !default;
 $form-item-margin-bottom: map.merge(
   (
     'large': 22px,
-    'default': 18px,
-    'small': 18px,
+    'default': 10px,
+    'small': 8px,
   ),
   $form-item-margin-bottom
 );

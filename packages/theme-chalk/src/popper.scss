@@ -16,8 +16,12 @@
   min-width: 10px;
   overflow-wrap: break-word;
   visibility: visible;
+  outline: none;
 
   $arrow-selector: #{& + '__arrow'};
+	&:focus {
+	    outline: none;
+	  }
 
   @include when(dark) {
     color: getCssVar('bg-color');

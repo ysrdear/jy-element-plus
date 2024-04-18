@@ -54,7 +54,8 @@
   }
 
   @include e(header) {
-    padding-bottom: getCssVar('dialog', 'padding-primary');
+    padding: getCssVar('dialog', 'padding-primary');
+    padding-bottom: 10px;
 
     &.show-close {
       padding-right: calc(
@@ -99,6 +100,7 @@
   @include e(title) {
     line-height: getCssVar('dialog-font-line-height');
     font-size: getCssVar('dialog-title-font-size');
+    font-weight: bold;
     color: getCssVar('text-color', 'primary');
   }
 
@@ -108,7 +110,8 @@
   }
 
   @include e(footer) {
-    padding-top: getCssVar('dialog', 'padding-primary');
+    padding: getCssVar('dialog-padding-primary');
+    padding-top: 10px;    
     text-align: right;
     box-sizing: border-box;
   }
