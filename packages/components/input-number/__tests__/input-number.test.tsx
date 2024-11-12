@@ -12,7 +12,7 @@ describe('InputNumber.vue', () => {
   test('create', async () => {
     const num = ref(1)
     const wrapper = mount(() => (
-      <InputNumber label="描述文字" v-model={num.value} />
+      <InputNumber aria-label="描述文字" v-model={num.value} />
     ))
     expect(wrapper.find('input').exists()).toBe(true)
   })
@@ -593,5 +593,15 @@ describe('InputNumber.vue', () => {
     expect(decrease.exists()).toBe(true)
     expect(increase.classes()).toContain('el-icon')
     expect(decrease.classes()).toContain('el-icon')
+  })
+
+  // fix: #18275
+  test('step-strictly is true and should keep the initial value and step matching', () => {
+    const num = ref(2.6)
+    const wrapper = mount(() => (
+      <InputNumber v-model={num.value} stepStrictly step={0.5} />
+    ))
+    expect(wrapper.find('input').element.value).toBe(num.value.toString())
+    wrapper.unmount()
   })
 })

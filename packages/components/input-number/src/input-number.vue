@@ -52,16 +52,22 @@
       :max="max"
       :min="min"
       :name="name"
-      :label="label"
+      :aria-label="ariaLabel"
       :validate-event="false"
-      @wheel="handleWheel"
       @keydown.up.prevent="increase"
       @keydown.down.prevent="decrease"
       @blur="handleBlur"
       @focus="handleFocus"
       @input="handleInput"
       @change="handleInputChange"
-    />
+    >
+      <template v-if="$slots.prefix" #prefix>
+        <slot name="prefix" />
+      </template>
+      <template v-if="$slots.suffix" #suffix>
+        <slot name="suffix" />
+      </template>
+    </el-input>
   </div>
 </template>
 <script lang="ts" setup>
@@ -223,6 +229,9 @@ const verifyValue = (
   }
   if (stepStrictly) {
     newVal = toPrecision(Math.round(newVal / step) * step, precision)
+    if (newVal !== value) {
+      update && emit(UPDATE_MODEL_EVENT, newVal)
+    }
   }
   if (!isUndefined(precision)) {
     newVal = toPrecision(newVal, precision)
@@ -294,7 +303,7 @@ const setCurrentValueToModelValue = () => {
     data.currentValue = props.modelValue
   }
 }
-const handleWheel = (e: MouseEvent) => {
+const handleWheel = (e: WheelEvent) => {
   if (document.activeElement === e.target) e.preventDefault()
 }
 
@@ -336,6 +345,7 @@ onMounted(() => {
     }
     emit(UPDATE_MODEL_EVENT, val!)
   }
+  innerInput.addEventListener('wheel', handleWheel, { passive: false })
 })
 onUpdated(() => {
   const innerInput = input.value?.input

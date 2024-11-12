@@ -9,7 +9,8 @@
           ns.em('content', type),
           ns.is('fixed', !!$slots.default),
           ns.is('dot', isDot),
-          dotClass,
+          ns.is('hide-zero', !showZero && props.value === 0),
+          badgeClass,
         ]"
         :style="style"
         v-text="content"
@@ -36,13 +37,11 @@ const ns = useNamespace('badge')
 const content = computed<string>(() => {
   if (props.isDot) return ''
   if (isNumber(props.value) && isNumber(props.max)) {
-    if (props.max < props.value) {
-      return `${props.max}+`
-    }
-    return props.value === 0 && !props.showZero ? '' : `${props.value}`
+    return props.max < props.value ? `${props.max}+` : `${props.value}`
   }
   return `${props.value}`
 })
+
 const style = computed<StyleValue>(() => {
   return [
     {
@@ -50,7 +49,7 @@ const style = computed<StyleValue>(() => {
       marginRight: addUnit(-(props.offset?.[0] ?? 0)),
       marginTop: addUnit(props.offset?.[1] ?? 0),
     },
-    props.dotStyle ?? {},
+    props.badgeStyle ?? {},
   ]
 })
 

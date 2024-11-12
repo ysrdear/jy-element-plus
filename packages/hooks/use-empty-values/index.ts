@@ -1,9 +1,12 @@
-import { computed } from 'vue'
-import { useGlobalConfig } from '@element-plus/components/config-provider'
+import { computed, getCurrentInstance, inject, ref } from 'vue'
 import { buildProps, debugWarn, isFunction } from '@element-plus/utils'
 
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, InjectionKey, Ref } from 'vue'
 
+type EmptyValuesContext = ExtractPropTypes<typeof useEmptyValuesProps>
+
+export const emptyValuesContextKey: InjectionKey<Ref<EmptyValuesContext>> =
+  Symbol('emptyValuesContextKey')
 export const SCOPE = 'use-empty-values'
 export const DEFAULT_EMPTY_VALUES = ['', undefined, null]
 export const DEFAULT_VALUE_ON_CLEAR = undefined
@@ -24,11 +27,12 @@ export const useEmptyValuesProps = buildProps({
 } as const)
 
 export const useEmptyValues = (
-  props: ExtractPropTypes<typeof useEmptyValuesProps>,
+  props: EmptyValuesContext,
   defaultValue?: null | undefined
 ) => {
-  const config = useGlobalConfig()
-  config.value = config.value || {}
+  const config = getCurrentInstance()
+    ? inject(emptyValuesContextKey, ref<EmptyValuesContext>({}))
+    : ref<EmptyValuesContext>({})
 
   const emptyValues = computed(
     () => props.emptyValues || config.value.emptyValues || DEFAULT_EMPTY_VALUES
